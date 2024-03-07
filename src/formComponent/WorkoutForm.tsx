@@ -15,7 +15,7 @@ export default function WorkoutForm({
 }: InputFieldProps) {
   return (
     <>
-      <FormControl mb={4} w={80}>
+      <FormControl mb={4}>
         <Controller
           name={name}
           control={control}

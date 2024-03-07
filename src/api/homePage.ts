@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { api } from "./api";
 import { WorkoutHttpClient } from "./axiosSetup";
 import { AxiosError } from "axios";
@@ -13,7 +13,13 @@ const useFetchWorkout = () => {
   return useQuery([api.getWorkouts], fetchWorkout, {
     select: (response) => response?.data?.workouts,
     onError: (error: AxiosError) => {
-      toast.error(error?.message);
+      toast.error(error?.message, {
+        style: {
+          backgroundColor: "red",
+          borderRadius: "10px",
+          color: "white",
+        },
+      });
     },
   });
 };
@@ -23,12 +29,26 @@ const createWorkout = (data: any) => {
 };
 
 const useCreateWorkout = () => {
+  const queryClient = useQueryClient();
   return useMutation(createWorkout, {
     onSuccess: () => {
-      toast.success("Workout added");
+      toast.success("Workout added", {
+        style: {
+          backgroundColor: "green",
+          borderRadius: "10px",
+          color: "white",
+        },
+      });
+      queryClient.invalidateQueries([api.getWorkouts]);
     },
     onError: (error: AxiosError) => {
-      toast.error(error?.message);
+      toast.error(error?.message, {
+        style: {
+          backgroundColor: "red",
+          borderRadius: "10px",
+          color: "white",
+        },
+      });
     },
   });
 };

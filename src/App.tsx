@@ -4,7 +4,7 @@ import HomePage from "./pages/HomePage";
 
 function App() {
   return (
-    <Container maxW={"container.lg"} py={52}>
+    <Container maxW={"container.lg"}>
       <HomePage />
     </Container>
   );
